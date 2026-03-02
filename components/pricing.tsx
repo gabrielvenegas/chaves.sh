@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 const PLANS = [
   {
@@ -24,7 +24,7 @@ const PLANS = [
     cta: "Get started",
     features: [
       "Unlimited sessions",
-      "Slow model",
+      "Fast model",
       "Managed inference",
       "Unlimited projects",
     ],
@@ -38,23 +38,30 @@ const PLANS = [
     cta: "Go Pro",
     features: [
       "Unlimited sessions",
-      "Fast models",
+      "Faster models",
       "Managed inference + BYOK",
       "Unlimited projects",
       "Priority support",
     ],
   },
-]
+];
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-20 px-6 border-t" style={{ borderColor: "#3c3836" }}>
+    <section
+      id="pricing"
+      className="py-20 px-6 border-t"
+      style={{ borderColor: "#3c3836" }}
+    >
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <p className="text-xs mb-2" style={{ color: "#928374" }}>
           // pricing
         </p>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: "#ebdbb2" }}>
+        <h2
+          className="text-2xl sm:text-3xl font-bold mb-12"
+          style={{ color: "#ebdbb2" }}
+        >
           Simple, honest pricing.
         </h2>
 
@@ -66,7 +73,7 @@ export function Pricing() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function PricingCard({ plan }: { plan: (typeof PLANS)[0] }) {
@@ -119,30 +126,38 @@ function PricingCard({ plan }: { plan: (typeof PLANS)[0] }) {
         className="text-center py-2.5 text-sm font-bold border transition-colors no-underline"
         style={
           plan.recommended
-            ? { backgroundColor: "#b8bb26", color: "#1d2021", borderColor: "#b8bb26" }
-            : { backgroundColor: "transparent", color: "#928374", borderColor: "#3c3836" }
+            ? {
+                backgroundColor: "#b8bb26",
+                color: "#1d2021",
+                borderColor: "#b8bb26",
+              }
+            : {
+                backgroundColor: "transparent",
+                color: "#928374",
+                borderColor: "#3c3836",
+              }
         }
         onMouseEnter={(e) => {
-          const el = e.currentTarget as HTMLElement
+          const el = e.currentTarget as HTMLElement;
           if (plan.recommended) {
-            el.style.backgroundColor = "#d5d930"
+            el.style.backgroundColor = "#d5d930";
           } else {
-            el.style.borderColor = "#928374"
-            el.style.color = "#ebdbb2"
+            el.style.borderColor = "#928374";
+            el.style.color = "#ebdbb2";
           }
         }}
         onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement
+          const el = e.currentTarget as HTMLElement;
           if (plan.recommended) {
-            el.style.backgroundColor = "#b8bb26"
+            el.style.backgroundColor = "#b8bb26";
           } else {
-            el.style.borderColor = "#3c3836"
-            el.style.color = "#928374"
+            el.style.borderColor = "#3c3836";
+            el.style.color = "#928374";
           }
         }}
       >
         {plan.cta}
       </a>
     </div>
-  )
+  );
 }
