@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Gruvbox Dark Hard palette */
+:root {
+  --background: #1d2021;
+  --surface: #282828;
+  --surface2: #32302f;
+  --foreground: #ebdbb2;
+  --muted: #928374;
+  --border: #3c3836;
+  --green: #b8bb26;
+  --orange: #fe8019;
+  --yellow: #fabd2f;
+  --red: #fb4934;
+  --radius: 0rem;
+}
+
+@theme inline {
+  --font-sans: 'Geist Mono', 'Geist Mono Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-green: var(--green);
+  --color-orange: var(--orange);
+  --color-yellow: var(--yellow);
+  --color-red: var(--red);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-mono;
+    background-color: #1d2021;
+    color: #ebdbb2;
+  }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
