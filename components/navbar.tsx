@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -18,8 +19,11 @@ export function Navbar() {
           className="flex items-center gap-2 no-underline"
           style={{ color: "#ebdbb2" }}
         >
-          <HatIcon />
-          <span className="text-lg font-bold tracking-tight">chaves</span>
+          <Image src="/logo.png" alt="chaves logo" width={20} height={20} />
+
+          <span className="text-lg font-mono font-bold tracking-tight">
+            chaves
+          </span>
         </Link>
 
         {/* Desktop nav */}
