@@ -3,17 +3,18 @@
 import { useEffect, useState, useRef } from "react";
 
 const TYPEWRITER_LINES = [
-  { role: "SYSTEM", text: "Watching ./src/components/ for changes..." },
-  { role: "SYSTEM", text: "Diff detected in FloatingChat.tsx (+47 lines)" },
+  { role: "SYSTEM", text: "Indexing repository with SQLite FTS5..." },
+  { role: "SYSTEM", text: "Launching managed tmux session (chat + dev shell)" },
+  { role: "SYSTEM", text: "Diff detected in session-store.ts (+34 lines)" },
   {
     role: "CHAVES",
-    text: "Hey, looks like you're building out a FloatingChat component — you'll probably want to wire up the interaction logic next, right?",
-    highlight: "FloatingChat",
+    text: "You just added durable session state. The next logical step is summarizing recent diffs so the model keeps context without replaying the whole chat.",
+    highlight: "durable session state",
   },
-  { role: "SYSTEM", text: "Analyzing component tree..." },
+  { role: "SYSTEM", text: "Relaying stderr from dev pane: SQLITE_BUSY in indexer" },
   {
     role: "CHAVES",
-    text: "I'd suggest adding an onClose handler and tracking the open/close state. Also you might be missing keyboard accessibility on the toggle button.",
+    text: "I found the likely issue: the indexer and relay are writing at the same time. Queue writes through one transaction path and inspect /diffs 3 after the next run.",
     highlight: null,
   },
 ];
@@ -132,7 +133,7 @@ export function TerminalMockup() {
             CHAVES
           </span>
         </div>
-        <span style={{ color: "#fe8019" }}>.: Watching...</span>
+        <span style={{ color: "#fe8019" }}>.: Session live...</span>
       </div>
 
       {/* Chat area */}
@@ -202,7 +203,7 @@ export function TerminalMockup() {
       >
         <span style={{ color: "#928374" }}>You</span>
         <span style={{ color: "#3c3836" }}>│</span>
-        <span style={{ color: "#928374" }}>Ask Chaves anything...</span>
+        <span style={{ color: "#928374" }}>/history 5</span>
         <span
           className="inline-block w-2 h-4 ml-1"
           style={{

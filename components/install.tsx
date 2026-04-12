@@ -4,20 +4,16 @@ import { useState } from "react"
 
 const INSTALL_METHODS = [
   {
-    label: "curl",
-    code: `curl -fsSL https://chaves.sh/install | sh`,
+    label: "bun install",
+    code: `bun install`,
   },
   {
-    label: "npm",
-    code: `npm install -g chaves`,
+    label: "launch",
+    code: `chaves`,
   },
   {
-    label: "bun",
-    code: `bun add -g chaves`,
-  },
-  {
-    label: "brew",
-    code: `brew install chaves`,
+    label: "glow",
+    code: `brew install glow`,
   },
 ]
 
@@ -40,10 +36,12 @@ export function Install() {
           // install
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "#ebdbb2" }}>
-          Get Chaves running in seconds.
+          Install it once, launch it with `chaves`.
         </h2>
         <p className="text-sm mb-10" style={{ color: "#928374" }}>
-          No daemon, no config file, no bullshit. Just run it.
+          CHAVES runs from a single command. Install dependencies, add Glow for
+          markdown rendering, then start the application by typing `chaves` in
+          your shell.
         </p>
 
         {/* Tabs */}
@@ -90,11 +88,37 @@ export function Install() {
         {/* After install */}
         <div className="mt-6" style={{ borderLeft: "2px solid #3c3836", paddingLeft: "1rem" }}>
           <p className="text-xs mb-2" style={{ color: "#928374" }}>
-            Then start watching your project:
+            Required environment:
           </p>
           <code className="text-sm" style={{ color: "#fe8019" }}>
-            $ chaves start ./my-project
+            OPENROUTER_API_KEY=...
           </code>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div className="border p-4" style={{ borderColor: "#3c3836" }}>
+            <p className="text-xs mb-2" style={{ color: "#928374" }}>
+              Useful commands
+            </p>
+            <div className="flex flex-col gap-2 text-sm" style={{ color: "#d5c4a1" }}>
+              <code>/help</code>
+              <code>/setup</code>
+              <code>/model list</code>
+              <code>/history 5</code>
+              <code>/diffs 10</code>
+              <code>/diff &lt;id&gt;</code>
+            </div>
+          </div>
+          <div className="border p-4" style={{ borderColor: "#3c3836" }}>
+            <p className="text-xs mb-2" style={{ color: "#928374" }}>
+              Runtime flags
+            </p>
+            <div className="flex flex-col gap-2 text-sm" style={{ color: "#d5c4a1" }}>
+              <code>CHAVES_DEBUG=true</code>
+              <code>CHAVES_INDEX_ON_START=false</code>
+              <code>Glow required for markdown summaries</code>
+            </div>
+          </div>
         </div>
       </div>
     </section>

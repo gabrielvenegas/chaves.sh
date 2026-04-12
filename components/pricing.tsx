@@ -2,46 +2,59 @@
 
 const PLANS = [
   {
-    tag: "[FREE]",
-    name: "Free",
-    price: "$0",
-    period: "/mo",
+    tag: "[SEARCH]",
+    name: "Semantic search",
+    step: "01",
+    status: "planned",
     recommended: false,
-    cta: "Get started",
+    cta: "Read docs",
     features: [
-      "2h sessions per day",
-      "Slow model",
-      "Managed inference",
-      "1 project",
+      "Move beyond keyword-only lookups",
+      "Add local embeddings on top of FTS5",
+      "Answer vague codebase questions by meaning",
+      "Keep project search fast and local",
     ],
   },
   {
-    tag: "[HACKER]",
-    name: "Hacker",
-    price: "$2",
-    period: "/mo",
+    tag: "[DEBUG]",
+    name: "Automated debugging",
+    step: "02",
+    status: "planned",
     recommended: false,
-    cta: "Get started",
+    cta: "Read docs",
     features: [
-      "Unlimited sessions",
-      "Fast model",
-      "Managed inference",
-      "Unlimited projects",
+      "Detect stack traces from tmux relay",
+      "Locate likely buggy files automatically",
+      "Suggest fixes from current session context",
+      "Tighten failure analysis loops",
     ],
   },
   {
-    tag: "[PRO]",
-    name: "Pro",
-    price: "$5",
-    period: "/mo",
+    tag: "[TRACKING]",
+    name: "Smarter change tracking",
+    step: "03",
+    status: "in progress",
     recommended: true,
-    cta: "Go Pro",
+    cta: "Read docs",
     features: [
-      "Unlimited sessions",
-      "Faster models",
-      "Managed inference + BYOK",
-      "Unlimited projects",
-      "Priority support",
+      "Make summaries more surgical",
+      "Improve context quality per token",
+      "Stay model-agnostic across providers",
+      "Reduce noisy change churn",
+    ],
+  },
+  {
+    tag: "[AGENT]",
+    name: "Autonomous proactivity",
+    step: "04",
+    status: "planned",
+    recommended: false,
+    cta: "Read docs",
+    features: [
+      "Run multi-step research tasks",
+      "Validate code paths before suggesting changes",
+      "Act more like a peer programmer",
+      "Stay permission-aware while assisting",
     ],
   },
 ];
@@ -49,24 +62,24 @@ const PLANS = [
 export function Pricing() {
   return (
     <section
-      id="pricing"
+      id="roadmap"
       className="py-20 px-6 border-t"
       style={{ borderColor: "#3c3836" }}
     >
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <p className="text-xs mb-2" style={{ color: "#928374" }}>
-          // pricing
+          // roadmap
         </p>
         <h2
           className="text-2xl sm:text-3xl font-bold mb-12"
           style={{ color: "#ebdbb2" }}
         >
-          Simple, honest pricing.
+          What CHAVES is shipping next.
         </h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
           {PLANS.map((plan) => (
             <PricingCard key={plan.tag} plan={plan} />
           ))}
@@ -100,14 +113,22 @@ function PricingCard({ plan }: { plan: (typeof PLANS)[0] }) {
         {plan.tag}
       </code>
 
-      {/* Price */}
-      <div className="flex items-baseline gap-1 mb-6">
-        <span className="text-3xl font-bold" style={{ color: "#ebdbb2" }}>
-          {plan.price}
-        </span>
-        <span className="text-sm" style={{ color: "#928374" }}>
-          {plan.period}
-        </span>
+      {/* Milestone */}
+      <div className="mb-6">
+        <div className="flex items-baseline gap-3 mb-1">
+          <span className="text-3xl font-bold" style={{ color: "#ebdbb2" }}>
+            {plan.step}
+          </span>
+          <span
+            className="text-[11px] uppercase tracking-[0.18em]"
+            style={{ color: plan.recommended ? "#b8bb26" : "#928374" }}
+          >
+            {plan.status}
+          </span>
+        </div>
+        <p className="text-base font-semibold" style={{ color: "#d5c4a1" }}>
+          {plan.name}
+        </p>
       </div>
 
       {/* Features */}
@@ -122,7 +143,7 @@ function PricingCard({ plan }: { plan: (typeof PLANS)[0] }) {
 
       {/* CTA */}
       <a
-        href="#install"
+        href="/docs"
         className="text-center py-2.5 text-sm font-bold border transition-colors no-underline"
         style={
           plan.recommended

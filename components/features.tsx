@@ -2,45 +2,66 @@
 
 const FEATURES = [
   {
-    tag: "[proactive]",
-    title: "Proactive suggestions",
+    tag: "[watcher]",
+    title: "Real-time activity monitoring",
     description:
-      "Chaves doesn't wait to be asked. It watches your diffs and speaks up when it has something useful to say.",
+      "Monitors file creates, edits, and deletes with granular diff snapshots so the assistant sees your work unfold in order.",
     accent: "#b8bb26",
   },
   {
-    tag: "[rubber-duck]",
-    title: "Rubber Duck mode",
+    tag: "[memory]",
+    title: "Durable session memory",
     description:
-      "Explain your thinking to Chaves and let it reflect it back. Based on the Rubber Duck Debugging technique from The Pragmatic Programmer.",
+      "Learns durable preferences and project decisions from chat history, then keeps them across restarts without replaying everything.",
     accent: "#fabd2f",
   },
   {
-    tag: "[file-watch]",
-    title: "File watching & diff tracking",
+    tag: "[rolling-context]",
+    title: "Rolling context windows",
     description:
-      "Always aware of what changed, when, and in what context. Chaves builds a live model of your work session.",
+      "Continuously summarizes chat, file events, and terminal activity so responses stay fast without dropping the thread.",
     accent: "#fe8019",
   },
   {
-    tag: "[byok]",
-    title: "BYOK — Bring Your Own Key",
+    tag: "[models]",
+    title: "Multi-model support",
     description:
-      "Use your own API keys for LLM inference. Full control over your model provider and cost. Available on the $5 plan.",
+      "Powered by OpenRouter with support for Claude, GPT, and other frontier models through one terminal-native workflow.",
     accent: "#b8bb26",
   },
   {
-    tag: "[models]",
-    title: "Massive model support",
+    tag: "[tmux]",
+    title: "Integrated dev shell",
     description:
-      "OpenAI, Gemini, Grok, DeepSeek, Moonshot, Kimi, GLM, and more via OpenRouter. Including leading Chinese frontier models.",
+      "Bootstraps a managed tmux session with chat and dev panes so you can code, run, and inspect without leaving the terminal.",
     accent: "#fabd2f",
   },
   {
-    tag: "[managed]",
-    title: "Managed inference",
+    tag: "[shell-aware]",
+    title: "Environment-aware execution",
     description:
-      "Don't want to deal with API keys? We handle it. Managed inference is available on all plans, including free.",
+      "Runs dev commands inside your native login shell to preserve aliases, PATH setup, and existing environment variables.",
+    accent: "#fe8019",
+  },
+  {
+    tag: "[relay]",
+    title: "Real-time terminal relay",
+    description:
+      "Streams stdout and stderr into the session database so CHAVES can proactively explain failures while they happen.",
+    accent: "#b8bb26",
+  },
+  {
+    tag: "[search]",
+    title: "DB-backed code search",
+    description:
+      "Indexes your project with SQLite FTS5 for instant project-wide lookups directly from the chat and command palette.",
+    accent: "#fabd2f",
+  },
+  {
+    tag: "[shield]",
+    title: "Security and redaction",
+    description:
+      "Blocks sensitive files like .env, .pem, and .git data while redacting API keys before prompts leave your machine.",
     accent: "#fe8019",
   },
 ]
@@ -54,7 +75,7 @@ export function Features() {
           // features
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: "#ebdbb2" }}>
-          Everything you need. Nothing you don{"'"}t.
+          Built for real engineering sessions.
         </h2>
 
         {/* Grid */}

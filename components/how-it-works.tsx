@@ -1,21 +1,21 @@
 const STEPS = [
   {
-    label: "$ chaves start",
-    title: "Point & watch",
+    label: "$ bun start ./project",
+    title: "Start in your repo",
     description:
-      "Run chaves start in your project directory. Chaves indexes your codebase and begins watching for changes.",
+      "Run CHAVES against your project and it immediately indexes the codebase, detects your language mix, and begins watching file activity.",
   },
   {
-    label: "// diff detected",
-    title: "Reads as you code",
+    label: "// tmux + relay online",
+    title: "Mirror the live session",
     description:
-      "Every save, every diff. Chaves tracks what changed, in what file, and in what context — building a live picture of your intent.",
+      "When a dev command is configured, CHAVES boots a tmux layout, preserves your login shell environment, and captures stdout and stderr for analysis.",
   },
   {
-    label: "> suggestion ready",
-    title: "Speaks up proactively",
+    label: "> insight ready",
+    title: "Reason over context",
     description:
-      "No need to ask. Chaves tells you what's happening and what's logically next, like a senior dev looking over your shoulder.",
+      "Recent diffs, indexed code, chat history, and terminal errors get compacted into rolling context so CHAVES can suggest the next step before you ask.",
   },
 ]
 
@@ -28,7 +28,7 @@ export function HowItWorks() {
           // how it works
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: "#ebdbb2" }}>
-          Three steps. Zero friction.
+          One shell. Full awareness.
         </h2>
 
         {/* Steps */}

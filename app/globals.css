@@ -19,8 +19,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist Mono', 'Geist Mono Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  --font-mono: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
@@ -55,4 +55,68 @@
 
 .cursor-blink {
   animation: cursor-blink 1s step-end infinite;
+}
+article.blog-article {
+  color: #d5c4a1;
+  line-height: 1.9;
+}
+
+article.blog-article h1,
+article.blog-article h2,
+article.blog-article h3 {
+  color: #ebdbb2;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+article.blog-article h1 {
+  font-size: 2rem;
+  margin: 0 0 1.5rem;
+}
+
+article.blog-article h2 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+}
+
+article.blog-article h3 {
+  font-size: 1.125rem;
+  margin: 2rem 0 0.75rem;
+}
+
+article.blog-article p,
+article.blog-article ul,
+article.blog-article pre {
+  margin: 0 0 1.25rem;
+}
+
+article.blog-article ul {
+  padding-left: 1.25rem;
+}
+
+article.blog-article li {
+  margin: 0 0 0.5rem;
+}
+
+article.blog-article code {
+  color: #fabd2f;
+  background: rgba(60, 56, 54, 0.45);
+  padding: 0.1rem 0.35rem;
+}
+
+article.blog-article pre {
+  overflow-x: auto;
+  border: 1px solid #3c3836;
+  background: #282828;
+  padding: 1rem;
+}
+
+article.blog-article pre code {
+  background: transparent;
+  padding: 0;
+}
+
+article.blog-article a {
+  color: #b8bb26;
+  text-decoration: none;
 }

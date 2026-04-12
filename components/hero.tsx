@@ -1,11 +1,7 @@
 "use client";
 
 import { TerminalMockup } from "@/components/terminal-mockup";
-import {
-  CircleOffIcon,
-  FlagTriangleRightIcon,
-  ShieldCheck,
-} from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 export function Hero() {
   return (
@@ -38,9 +34,10 @@ export function Hero() {
           className="max-w-2xl text-sm sm:text-base leading-relaxed"
           style={{ color: "#928374" }}
         >
-          Chaves watches your files, tracks your diffs, and proactively suggests
-          what to work on next — without you asking. Like a rubber duck that
-          actually talks back.
+          Chaves watches your files, tracks your diffs, relays terminal output,
+          and proactively tells you what to do next. It stays inside your shell,
+          bootstraps tmux when needed, and remembers the decisions that shape
+          your codebase.
         </p>
 
         {/* CTAs */}
@@ -58,10 +55,10 @@ export function Hero() {
                 "#b8bb26")
             }
           >
-            $ get started free
+            $ install with bun
           </a>
           <a
-            href="https://github.com"
+            href="/docs"
             className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-bold border transition-colors no-underline"
             style={{
               borderColor: "#3c3836",
@@ -80,7 +77,7 @@ export function Hero() {
             }}
           >
             <GitHubIcon />
-            View on GitHub
+            Read the docs
           </a>
         </div>
 
@@ -102,11 +99,9 @@ export function Hero() {
             <code className="font-bold" style={{ color: "#fabd2f" }}>
               .env
             </code>{" "}
-            files or API keys — our{" "}
-            <a href="#" style={{ color: "#fabd2f" }}>
-              powerful shield parser
-            </a>{" "}
-            keeps your secrets safe.
+            files, secrets, or private keys. The built-in shield layer blocks
+            sensitive paths and redacts credentials before anything reaches the
+            model.
           </span>
         </div>
       </div>

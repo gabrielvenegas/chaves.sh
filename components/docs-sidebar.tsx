@@ -9,6 +9,7 @@ export const DOC_SECTIONS = [
       { id: "introduction", label: "Introduction" },
       { id: "installation", label: "Installation" },
       { id: "quickstart", label: "Quickstart" },
+      { id: "commands", label: "Interactive Commands" },
     ],
   },
   {
@@ -16,24 +17,26 @@ export const DOC_SECTIONS = [
     items: [
       { id: "file-watching", label: "File Watching" },
       { id: "diff-tracking", label: "Diff Tracking" },
-      { id: "suggestions", label: "AI Suggestions" },
+      { id: "terminal-relay", label: "Terminal Relay" },
+      { id: "tmux-integration", label: "tmux Integration" },
+      { id: "session-memory", label: "Session Memory" },
+      { id: "code-search", label: "Code Search" },
+      { id: "suggestions", label: "Proactive Insights" },
     ],
   },
   {
-    group: "Configuration",
+    group: "Environment",
     items: [
-      { id: "config-file", label: "chaves.toml" },
-      { id: "ignore-patterns", label: "Ignore Patterns" },
-      { id: "model-config", label: "Model & API Keys" },
+      { id: "environment", label: "Environment Variables" },
+      { id: "security", label: "Security & Privacy" },
+      { id: "glow", label: "Glow Renderer" },
     ],
   },
   {
-    group: "CLI Reference",
+    group: "Reference",
     items: [
-      { id: "cli-start", label: "chaves start" },
-      { id: "cli-ask", label: "chaves ask" },
-      { id: "cli-review", label: "chaves review" },
-      { id: "cli-config", label: "chaves config" },
+      { id: "cli-start", label: "bun start" },
+      { id: "roadmap", label: "Roadmap" },
     ],
   },
 ];

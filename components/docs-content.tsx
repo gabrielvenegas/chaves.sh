@@ -53,26 +53,21 @@ export const DOC_CONTENT: Record<string, React.ReactNode> = {
     <div>
       <H2>Introduction</H2>
       <P>
-        Chaves is a terminal-native AI dev tool that watches your files, tracks
-        your diffs, and proactively suggests what to work on next — without you
-        having to ask. Think of it as a rubber duck that actually talks back.
+        CHAVES is an intelligent coding companion for engineering sessions. It
+        watches your project, tracks diffs, relays terminal activity, and
+        provides contextual AI help directly in the terminal.
       </P>
       <P>
-        Unlike chat-based AI tools, Chaves lives in your terminal and stays
-        aware of your project context at all times. It reads your file changes,
-        understands the flow of your work, and surfaces relevant suggestions
-        automatically.
+        Instead of acting like a detached chat box, CHAVES stays aware of your
+        current repo, recent edits, running commands, and prior decisions. The
+        result is proactive guidance grounded in what you are actually doing.
       </P>
       <H3>What makes Chaves different?</H3>
       <ul className="mb-4 flex flex-col gap-1">
-        <Li>
-          Runs entirely in your terminal — no browser tabs, no context switching
-        </Li>
-        <Li>Proactive: suggests next steps without waiting for a question</Li>
-        <Li>
-          Diff-aware: understands what you just changed and why it matters
-        </Li>
-        <Li>Works with any language or framework</Li>
+        <Li>Tracks file creates, edits, and deletes with granular diff history</Li>
+        <Li>Bootstraps tmux and relays stdout/stderr from your dev process</Li>
+        <Li>Keeps durable memory of preferences and architecture decisions</Li>
+        <Li>Searches indexed code with SQLite FTS5 and protects sensitive files</Li>
       </ul>
     </div>
   ),
@@ -81,25 +76,21 @@ export const DOC_CONTENT: Record<string, React.ReactNode> = {
     <div>
       <H2>Installation</H2>
       <P>
-        Chaves can be installed via several methods. Choose whichever fits your
-        workflow best.
+        CHAVES runs as a Bun project. Install dependencies locally, then add
+        Glow so markdown summaries render cleanly inside the terminal UI.
       </P>
-      <H3>curl (recommended)</H3>
-      <CodeBlock
-        code={`curl -fsSL https://chaves.sh/install | sh`}
-        lang="bash"
-      />
-      <H3>npm</H3>
-      <CodeBlock code={`npm install -g chaves`} lang="bash" />
-      <H3>bun</H3>
-      <CodeBlock code={`bun add -g chaves`} lang="bash" />
-      <H3>Homebrew (macOS)</H3>
-      <CodeBlock
-        code={`brew tap chaves-sh/tap\nbrew install chaves`}
-        lang="bash"
-      />
+      <H3>Install dependencies</H3>
+      <CodeBlock code={`bun install`} lang="bash" />
+      <H3>Install Glow (macOS)</H3>
+      <CodeBlock code={`brew install glow`} lang="bash" />
+      <H3>Other platforms</H3>
       <P>
-        After installation, verify it worked by running <C>chaves --version</C>.
+        Install Glow from the official project page if you are not on macOS.
+        CHAVES uses it to render markdown summaries in the terminal.
+      </P>
+      <P>
+        You also need <C>OPENROUTER_API_KEY</C> in your environment before
+        starting a session.
       </P>
     </div>
   ),
@@ -107,20 +98,51 @@ export const DOC_CONTENT: Record<string, React.ReactNode> = {
   quickstart: (
     <div>
       <H2>Quickstart</H2>
-      <P>Get up and running in under two minutes.</P>
-      <H3>1. Navigate to your project</H3>
-      <CodeBlock code={`cd my-project`} lang="bash" />
-      <H3>2. Start Chaves</H3>
-      <CodeBlock code={`chaves start`} lang="bash" />
+      <P>Start a session against the project you want CHAVES to observe.</P>
+      <H3>1. Set your API key</H3>
+      <CodeBlock code={`export OPENROUTER_API_KEY=your_key_here`} lang="bash" />
+      <H3>2. Launch CHAVES</H3>
+      <CodeBlock code={`bun start [project-path]`} lang="bash" />
       <P>
-        Chaves will begin watching your files. Open your editor and make a
-        change — Chaves will detect the diff and suggest what to do next.
+        If you omit <C>[project-path]</C>, CHAVES watches the current
+        directory. On startup it can index the repo, inspect recent activity,
+        and begin collecting diffs immediately.
       </P>
-      <H3>3. Ask a question (optional)</H3>
+      <H3>3. Explore session state</H3>
       <CodeBlock
-        code={`chaves ask "what should I refactor next?"`}
+        code={`/help\n/history 5\n/diffs 10`}
         lang="bash"
       />
+    </div>
+  ),
+
+  commands: (
+    <div>
+      <H2>Interactive Commands</H2>
+      <P>
+        CHAVES exposes the current session directly through terminal commands
+        in the chat pane.
+      </P>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>
+          <C>/help</C> shows the full command list
+        </Li>
+        <Li>
+          <C>/setup</C> configures models and languages
+        </Li>
+        <Li>
+          <C>/model list</C> browses OpenRouter model options
+        </Li>
+        <Li>
+          <C>/history [n]</C> reviews recent chat history
+        </Li>
+        <Li>
+          <C>/diffs [n]</C> lists recent diff snapshots
+        </Li>
+        <Li>
+          <C>/diff &lt;id&gt;</C> opens one specific change record
+        </Li>
+      </ul>
     </div>
   ),
 
@@ -128,23 +150,20 @@ export const DOC_CONTENT: Record<string, React.ReactNode> = {
     <div>
       <H2>File Watching</H2>
       <P>
-        Chaves uses a lightweight file-system watcher that monitors every file
-        in your project directory. It respects your <C>.gitignore</C> and any
-        custom ignore patterns defined in <C>chaves.toml</C>.
+        CHAVES monitors project activity in real time, including file creation,
+        modification, and deletion events. Those events are stored as granular
+        snapshots so the assistant can reason about implementation flow.
       </P>
       <H3>What gets watched</H3>
       <ul className="mb-4 flex flex-col gap-1">
-        <Li>All source files tracked by git</Li>
-        <Li>New untracked files (unless ignored)</Li>
-        <Li>Config files at the project root</Li>
+        <Li>Active project files as they are created, edited, or removed</Li>
+        <Li>Session timing signals like active versus idle periods</Li>
+        <Li>Language metadata that improves indexing and model context</Li>
       </ul>
       <H3>What is ignored by default</H3>
       <ul className="mb-4 flex flex-col gap-1">
-        <Li>
-          <C>node_modules/</C>, <C>.git/</C>, build output folders
-        </Li>
-        <Li>Binary files and images</Li>
-        <Li>Files larger than 512 KB</Li>
+        <Li>Sensitive and irrelevant paths controlled by the shield layer</Li>
+        <Li>Files explicitly blocked from model access, such as secrets</Li>
       </ul>
     </div>
   ),
@@ -153,209 +172,179 @@ export const DOC_CONTENT: Record<string, React.ReactNode> = {
     <div>
       <H2>Diff Tracking</H2>
       <P>
-        Every time you save a file, Chaves computes a semantic diff — not just
-        line-level changes, but structural changes like function additions,
-        variable renames, and logic shifts.
+        Every file change is converted into a unified diff record so CHAVES can
+        reconstruct what changed, when it changed, and how that change relates
+        to the rest of the session.
       </P>
       <P>
-        Diffs are kept in a rolling in-memory context window. Chaves uses these
-        diffs to:
+        Those diff records feed a rolling context window used to:
       </P>
       <ul className="mb-4 flex flex-col gap-1">
-        <Li>Understand what you are currently working on</Li>
-        <Li>Build a short-term "working memory" of recent changes</Li>
-        <Li>Surface suggestions that are relevant to your current task</Li>
+        <Li>Infer your current goal and implementation focus</Li>
+        <Li>Generate short-term working memory without replaying whole files</Li>
+        <Li>Support commands like <C>/diffs</C> and <C>/diff</C></Li>
       </ul>
+    </div>
+  ),
+
+  "terminal-relay": (
+    <div>
+      <H2>Terminal Relay</H2>
       <P>
-        No diffs are ever sent to a server unless you explicitly use a
-        cloud-backed model.
+        CHAVES can capture stdout and stderr from your development process in
+        real time. That output is written into the session database so the
+        assistant can spot errors as they happen.
       </P>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Streams live logs for proactive debugging assistance</Li>
+        <Li>Stores terminal context alongside diffs and chat history</Li>
+        <Li>Surfaces likely failure points before you ask for help</Li>
+      </ul>
+    </div>
+  ),
+
+  "tmux-integration": (
+    <div>
+      <H2>tmux Integration</H2>
+      <P>
+        When a development command is configured, CHAVES boots a managed tmux
+        session with a split-pane layout for chat and your dev shell.
+      </P>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Uses your native login shell so aliases and env vars stay intact</Li>
+        <Li>Separates the AI pane from the running dev process cleanly</Li>
+        <Li>Supports fast pane switching while keeping context synchronized</Li>
+      </ul>
+    </div>
+  ),
+
+  "session-memory": (
+    <div>
+      <H2>Session Memory</H2>
+      <P>
+        CHAVES stores durable facts extracted from chat history, such as coding
+        preferences, architectural choices, and project-specific decisions.
+      </P>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Passive preference learning from real conversations</Li>
+        <Li>Rolling summaries that preserve the thread across long sessions</Li>
+        <Li>Lower token usage because high-value context is compacted over time</Li>
+      </ul>
+    </div>
+  ),
+
+  "code-search": (
+    <div>
+      <H2>Code Search</H2>
+      <P>
+        CHAVES indexes the codebase into SQLite FTS5 so you can query the
+        project quickly from the terminal without external infrastructure.
+      </P>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Project-wide full-text lookup across indexed files</Li>
+        <Li>Incremental updates on changed files to reduce I/O</Li>
+        <Li>Local-first storage in <C>.chaves.db</C> inside the repo</Li>
+      </ul>
     </div>
   ),
 
   suggestions: (
     <div>
-      <H2>AI Suggestions</H2>
+      <H2>Proactive Insights</H2>
       <P>
-        Chaves uses the accumulated diff context to generate proactive
-        suggestions. Suggestions appear in your terminal automatically when
-        Chaves detects a meaningful inflection point — e.g., after a function is
-        added, a bug-prone pattern is introduced, or a related file should be
-        updated.
+        CHAVES analyzes recent file activity, chat history, indexed code, and
+        terminal output to infer what you are doing and what should happen next.
       </P>
-      <H3>Suggestion types</H3>
+      <H3>Typical outputs</H3>
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Next-step suggestions after a meaningful code change</Li>
+        <Li>Debugging hints when stderr or stack traces appear</Li>
+        <Li>Related-file reminders based on implementation patterns</Li>
+        <Li>Session summaries that explain what changed and why</Li>
+      </ul>
+    </div>
+  ),
+
+  environment: (
+    <div>
+      <H2>Environment Variables</H2>
+      <P>
+        These environment variables affect startup and runtime behavior.
+      </P>
+      <CodeBlock
+        code={`OPENROUTER_API_KEY=your_key_here
+CHAVES_DEBUG=true
+CHAVES_INDEX_ON_START=false`}
+        lang="bash"
+      />
       <ul className="mb-4 flex flex-col gap-1">
         <Li>
-          <strong>Next step</strong> — what to tackle after your current change
+          <C>OPENROUTER_API_KEY</C> is required for model access
         </Li>
         <Li>
-          <strong>Risk warning</strong> — potential bugs or edge cases
-          introduced
+          <C>CHAVES_DEBUG</C> enables detailed logs
         </Li>
         <Li>
-          <strong>Related files</strong> — files that likely need updating too
-        </Li>
-        <Li>
-          <strong>Refactor hint</strong> — structural improvements noticed in
-          context
+          <C>CHAVES_INDEX_ON_START=false</C> skips initial indexing
         </Li>
       </ul>
-      <P>
-        You can suppress suggestions for the current session with{" "}
-        <C>chaves quiet</C>.
-      </P>
     </div>
   ),
 
-  "config-file": (
+  security: (
     <div>
-      <H2>chaves.toml</H2>
+      <H2>Security & Privacy</H2>
       <P>
-        Create a <C>chaves.toml</C> file at the root of your project to
-        configure Chaves per-project.
+        CHAVES includes a shield layer that prevents sensitive material from
+        reaching the model and keeps operational data stored locally.
       </P>
-      <CodeBlock
-        code={`[project]
-name = "my-app"
-language = "typescript"
-
-[model]
-provider = "openai"       # openai | anthropic | local
-model = "gpt-4o-mini"
-api_key_env = "OPENAI_API_KEY"
-
-[watch]
-debounce_ms = 300
-ignore = ["dist/", "coverage/", "*.log"]
-
-[suggestions]
-enabled = true
-auto_trigger = true       # show without asking
-max_per_session = 20`}
-        lang="toml"
-      />
+      <ul className="mb-4 flex flex-col gap-1">
+        <Li>Blocks sensitive files such as <C>.env</C>, <C>.pem</C>, and <C>.git</C></Li>
+        <Li>Redacts API keys and likely secrets before prompt construction</Li>
+        <Li>Stores logs, diffs, and history locally in <C>.chaves.db</C></Li>
+      </ul>
     </div>
   ),
 
-  "ignore-patterns": (
+  glow: (
     <div>
-      <H2>Ignore Patterns</H2>
+      <H2>Glow Renderer</H2>
       <P>
-        Chaves automatically respects your <C>.gitignore</C>. You can add extra
-        patterns in <C>chaves.toml</C> under <C>[watch].ignore</C>.
+        Glow is used to render markdown summaries and richer terminal responses.
+        Without it, the core workflow still exists, but the output experience is
+        reduced.
       </P>
-      <CodeBlock
-        code={`[watch]
-ignore = [
-  "dist/",
-  "*.generated.ts",
-  "tests/fixtures/",
-]`}
-        lang="toml"
-      />
-      <P>
-        Patterns follow standard glob syntax. Paths are relative to the project
-        root.
-      </P>
-    </div>
-  ),
-
-  "model-config": (
-    <div>
-      <H2>Model & API Keys</H2>
-      <P>
-        Chaves supports multiple AI providers. Set your provider and model in
-        chaves.toml or via environment variables.
-      </P>
-      <H3>OpenAI</H3>
-      <CodeBlock code={`export OPENAI_API_KEY=sk-...`} lang="bash" />
-      <H3>Anthropic</H3>
-      <CodeBlock code={`export ANTHROPIC_API_KEY=sk-ant-...`} lang="bash" />
-      <H3>Local (Ollama)</H3>
-      <CodeBlock
-        code={`[model]
-provider = "local"
-model = "llama3"
-base_url = "http://localhost:11434"`}
-        lang="toml"
-      />
-      <P>
-        When using a local model, no data leaves your machine. This is
-        recommended for codebases with sensitive information.
-      </P>
+      <CodeBlock code={`brew install glow`} lang="bash" />
     </div>
   ),
 
   "cli-start": (
     <div>
-      <H2>chaves start</H2>
-      <P>Starts the Chaves watcher in the current directory.</P>
-      <CodeBlock code={`chaves start [options]`} lang="bash" />
-      <H3>Options</H3>
+      <H2>bun start</H2>
+      <P>Launches CHAVES against the current directory or a provided path.</P>
+      <CodeBlock code={`bun start [project-path]`} lang="bash" />
+      <P>
+        If no path is provided, CHAVES watches the current working directory.
+        Startup can include indexing, watcher initialization, and tmux setup for
+        a configured dev command.
+      </P>
+    </div>
+  ),
+
+  roadmap: (
+    <div>
+      <H2>Roadmap</H2>
+      <P>
+        The current roadmap focuses on improving semantic understanding,
+        debugging automation, change tracking quality, and autonomous
+        assistance.
+      </P>
       <ul className="mb-4 flex flex-col gap-1">
-        <Li>
-          <C>--quiet</C> — disable automatic suggestions
-        </Li>
-        <Li>
-          <C>--dir &lt;path&gt;</C> — watch a specific directory instead of cwd
-        </Li>
-        <Li>
-          <C>--model &lt;name&gt;</C> — override the model set in chaves.toml
-        </Li>
-        <Li>
-          <C>--verbose</C> — show detailed watcher logs
-        </Li>
+        <Li>Semantic search with local embeddings</Li>
+        <Li>Automated debugging workflows from terminal relay data</Li>
+        <Li>Higher-fidelity model-agnostic change tracking</Li>
+        <Li>More autonomous, permission-aware proactive behavior</Li>
       </ul>
-    </div>
-  ),
-
-  "cli-ask": (
-    <div>
-      <H2>chaves ask</H2>
-      <P>Ask Chaves a question with the current diff context loaded.</P>
-      <CodeBlock code={`chaves ask "what did I just break?"`} lang="bash" />
-      <P>
-        The question is answered using the last N diffs as context. You do not
-        need the watcher running to use <C>chaves ask</C>.
-      </P>
-      <H3>Options</H3>
-      <ul className="mb-4 flex flex-col gap-1">
-        <Li>
-          <C>--context &lt;n&gt;</C> — number of recent diffs to include
-          (default: 10)
-        </Li>
-        <Li>
-          <C>--file &lt;path&gt;</C> — limit context to a specific file
-        </Li>
-      </ul>
-    </div>
-  ),
-
-  "cli-review": (
-    <div>
-      <H2>chaves review</H2>
-      <P>Run a full review of your uncommitted changes.</P>
-      <CodeBlock code={`chaves review`} lang="bash" />
-      <P>
-        This is equivalent to passing your entire <C>git diff</C> to Chaves and
-        asking for a structured code review. Output includes risk warnings,
-        suggested improvements, and related files to check.
-      </P>
-    </div>
-  ),
-
-  "cli-config": (
-    <div>
-      <H2>chaves config</H2>
-      <P>Read and write configuration values from the terminal.</P>
-      <CodeBlock
-        code={`chaves config get model.provider\nchaves config set model.provider anthropic\nchaves config list`}
-        lang="bash"
-      />
-      <P>
-        Changes made via <C>chaves config</C> are written to <C>chaves.toml</C>{" "}
-        in the current directory.
-      </P>
     </div>
   ),
 };
